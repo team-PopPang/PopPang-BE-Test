@@ -18,7 +18,7 @@ jobs:
         if: github.event.action == 'opened'
         uses: actions/add-to-project@v1.0.2
         with:
-          project-url: "https://github.com/orgs/team-PopPang/projects/4"
+          project-url: "https://github.com/orgs/team-PopPang/projects/7"
           github-token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
 
       - name: 🏷️ 이슈 생성 시 Start date 설정
@@ -26,7 +26,7 @@ jobs:
         uses: github/update-project-action@v3
         with:
           organization: team-PopPang
-          project_number: 4
+          project_number: 7
           operation: update
           content_id: ${{ github.event.issue.node_id }}
           field: "Start date"
@@ -38,7 +38,7 @@ jobs:
         uses: github/update-project-action@v3
         with:
           organization: team-PopPang
-          project_number: 4
+          project_number: 7
           operation: update
           content_id: ${{ github.event.issue.node_id }}
           field: "Status"
@@ -50,7 +50,7 @@ jobs:
         uses: github/update-project-action@v3
         with:
           organization: team-PopPang
-          project_number: 4
+          project_number: 7
           operation: update
           content_id: ${{ github.event.issue.node_id }}
           field: "End date"
@@ -64,14 +64,14 @@ jobs:
       - name: PR을 프로젝트 보드에 추가
         uses: actions/add-to-project@v1.0.2
         with:
-          project-url: "https://github.com/orgs/team-PopPang/projects/4"
+          project-url: "https://github.com/orgs/team-PopPang/projects/7"
           github-token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
 
       - name: 🔄 PR 상태를 In Review로 설정
         uses: github/update-project-action@v3
         with:
           organization: team-PopPang
-          project_number: 4
+          project_number: 7
           operation: update
           content_id: ${{ github.event.pull_request.node_id }}
           field: "Status"
