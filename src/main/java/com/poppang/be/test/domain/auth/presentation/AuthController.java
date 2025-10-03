@@ -2,6 +2,8 @@ package com.poppang.be.test.domain.auth.presentation;
 
 import com.poppang.be.test.domain.auth.apple.application.AppleAuthService;
 import com.poppang.be.test.domain.auth.apple.dto.request.AppleAppLoginRequestDto;
+import com.poppang.be.test.domain.auth.application.AuthService;
+import com.poppang.be.test.domain.auth.dto.request.AutoLoginRequestDto;
 import com.poppang.be.test.domain.auth.google.application.GoogleAuthService;
 import com.poppang.be.test.domain.auth.google.dto.request.GoogleAppLoginRequestDto;
 import com.poppang.be.test.domain.auth.kakao.application.KakaoAuthService;
@@ -21,6 +23,7 @@ public class AuthController {
     private final KakaoAuthService kakaoAuthService;
     private final AppleAuthService appleAuthService;
     private final GoogleAuthService googleAuthService;
+    private final AuthService authService;
 
     /* ---------- 웹(브라우저)용: GET code 콜백 ---------- */
     // [카카오] 로그인
@@ -68,6 +71,14 @@ public class AuthController {
     @PostMapping("/google/mobile/login")
     public ResponseEntity<LoginResponseDto> googleMobileLogin(@RequestBody GoogleAppLoginRequestDto googleAppLoginRequestDto) {
         LoginResponseDto loginResponseDto = googleAuthService.mobileLogin(googleAppLoginRequestDto);
+
+        return ResponseEntity.ok(loginResponseDto);
+    }
+
+    /* ---------- 앱 자동 로그인 ---------- */
+    @PostMapping("/autoLogin")
+    public ResponseEntity<LoginResponseDto> autoLogin(@RequestBody AutoLoginRequestDto autoLoginRequestDto) {
+        LoginResponseDto loginResponseDto = authService.autoLogin(autoLoginRequestDto);
 
         return ResponseEntity.ok(loginResponseDto);
     }
