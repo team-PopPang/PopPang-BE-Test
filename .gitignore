@@ -60,3 +60,6 @@ application.properties
 
 ### 애플 private key ###
 AuthKey_382T2TB4RW.p8
+
+### Makefile
+makefile
