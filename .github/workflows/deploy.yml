@@ -13,6 +13,13 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v4
 
+      # ✅ 1️⃣ application.yml 생성 단계 추가
+      - name: Create application.yml from Secret
+        run: |
+          mkdir -p src/main/resources
+          echo "${{ secrets.APPLICATION_YML }}" > src/main/resources/application.yml
+          echo "✅ application.yml created from GitHub Secret"
+
       - name: Set up JDK 17
         uses: actions/setup-java@v4
         with:
@@ -42,15 +49,11 @@ jobs:
           key: ${{ secrets.SSH_KEY }}
           script: |
             echo "🛠️ 기존 컨테이너 중지 및 제거"
-            docker rm -f poppang-test2 || true
+            docker rm -f poppang-beta || true
 
             echo "🚀 새 컨테이너 실행"
             docker run -d -p 8500:8500 \
               --name poppang-beta \
               --network poppang-net \
               -v /home/poppang/poppang-be-test-0.0.1-SNAPSHOT.jar:/app/app.jar \
-              -e SERVER_PORT=8500 \
-              -e SPRING_DATASOURCE_URL="jdbc:mysql://mysql_test:3306/poppang_test_db?serverTimezone=UTC&characterEncoding=UTF-8" \
-              -e SPRING_DATASOURCE_USERNAME=poppang_test \
-              -e SPRING_DATASOURCE_PASSWORD="poppang1q2w3e4r!" \
               java-runner
